@@ -2,7 +2,7 @@
 
 ## How to create new slide
 
-1. Create new branch ```$ git checkout new_slide``` from **template branch**.
+1. Create new branch ```$ git checkout -b new_slide``` from **template branch**.
 2. Rename folder: ```$ git mv template new_slide```.
 3. Edit ```slide.md```, and confirm at local machine (see ```Local development```).
 4. Commit and push branch to GitHub. 
