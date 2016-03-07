@@ -36,3 +36,6 @@ Do not forget to use back-quote e.g.:
 ```
 
 This example is from [this repository](https://github.com/hamukazu/remarkjs_hamukazu).
+
+## LICENSE
+The slides without any license are provieded by MIT license.
