@@ -4,7 +4,7 @@
 
 Edit ```slide.md```.
 
-See [remark wiki](https://github.com/gnab/remark/wiki) for Formatting rules.
+See [remark wiki](https://github.com/gnab/remark/wiki) for formatting rules.
 
 ## Local development
 
