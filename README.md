@@ -26,3 +26,6 @@ Run server in the directory of your index.html file:
 - Python 3.x: ```$ python -m http.server 8000```
 
 and then, open ```http://localhost:8000```.
+
+## LICENSE
+The slides without any license are provieded by MIT license.
