@@ -9,6 +9,12 @@
 5. Create pull request to ```gh-pages``` branch (default)
 6. Confirm that the new slide is hosted at ```http://www.sotetsuk.net/slides/new_slide```.
 
+## How to update template
+
+1. Edit files at template branch.
+2. Commit and push.
+3. Create pull request to ```gh-pages``` branch (default).
+
 ## Formatting
 See [remark wiki](https://github.com/gnab/remark/wiki) for formatting rules.
 
