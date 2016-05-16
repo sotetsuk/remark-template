@@ -2,12 +2,9 @@
 
 ## How to create new slide
 
-1. Create new branch ```$ git checkout -b new_slide``` from **template branch**.
-2. Copy folder: ```$ cp -r template new_slide```.
-3. Edit ```slide.md```, and confirm at local machine (see ```Local development```).
-4. Commit and push branch to GitHub. 
-5. Create pull request to ```gh-pages``` branch (default)
-6. Confirm that the new slide is hosted at ```http://www.sotetsuk.net/slides/new_slide```.
+1. ```make new``` 
+2. Create pull request to ```gh-pages``` branch (default)
+3. Confirm that the new slide is hosted at ```http://www.sotetsuk.net/slides/new_slide```.
 
 ## How to update template
 
