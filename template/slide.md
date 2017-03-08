@@ -1,32 +1,54 @@
 class: center, middle
 
-# Title
+# 発表のタイトル
+#### サブタイトル
+
+Sotetsu KOYAMADA
 
 ---
 
-# Agenda
+### 目次
 
-1. Introduction
-2. Deep-dive
-3. ...
+- 最初にこれについて話します [Bellmare+2015]
+- 次はこれ
+- その次はこれ
+- その次の次の次はこれ
 
 ---
 
-# Introduction
+## 最初に話すこと
 
 ---
 
 class: center, middle
 
-# `\(\LaTeX{}\)` in remark
+# LaTeX
 
 ---
 
-# Display and Inline
+### 数式たち
 
-1. This is an inline integral: `\(\int_a^bf(x)dx\)`
-2. More `\(x={a \over b}\)` formulae.
+- インラインの数式: `\(\int_a^bf(x)dx\)`
+- こんな `\(x={a \over b}\)` 感じ
 
-Display formula:
+#### ディスプレイモード:
 
 `$$e^{i\pi} + 1 = 0$$`
+
+---
+
+# 図
+
+<img src='./img/mdp.png' width=400px />
+
+[Algorithms for Reinforcement Learningより引用]
+
+---
+
+# コメントアウト
+
+はこうすれば出来る
+
+???
+コメントアウトできるよ
+ここはプレゼンテーションモードで見られる
