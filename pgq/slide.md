@@ -1,9 +1,10 @@
 class: center, middle
 
+#### 【論文紹介】
 ### PGQ: Combining Policy Gradient And Q-learning
 #### O’Donoghue et al. ICLR 2017
 
-Sotetsu KOYAMADA
+Sotetsu KOYAMADA (@sotetsuk)
 
 ---
 
@@ -16,7 +17,6 @@ Sotetsu KOYAMADA
 - 論文の理論的結果 (2)
 - 提案手法の説明: PGQ
 - 実験結果
-- 関連研究
 - 参考文献
 
 ---
@@ -31,11 +31,11 @@ Sotetsu KOYAMADA
 
 ### 紹介する理由
 
-##### 1. 強化学習における二つの別のアプローチの統合を試みている
+##### 1. 強化学習における二つの別々の主要なアプローチの統合を試みている
 - 理論的に興味深い
 - 実用面からも長所を組み合わせることが期待できる
 
-##### 2. Atariベンチマークでの安定した実験結果
+##### 2. Atariベンチマークでの強い実験結果
 
 ---
 
@@ -47,11 +47,20 @@ https://openreview.net/forum?id=B1kJ6H9ex
 
 ---
 
-### コントリビューション
+### TL;DR (1)
 
-- 理論的結果 (1)
-- 理論的結果 (2)
-- PGQの提案と評価
+##### 理論的貢献 (1)
+エントロピー正則化付きの方策勾配法の停留点において、方策とアドバンテージ関数（Q関数）の間に次式の関係性を示し、**この関係から方策勾配法において明示的に推定しなくても適切な行動価値関数を導出できる。**
+
+##### 理論的貢献 (2)
+エントロピー正則化付きのActor-critic法と行動価値を推定する手法 (Q学習やSARSA) は更新則が等しくなる（特別な場合）。とくに、Actor-critc法をAdvantage function learningと見なすことが出来る。
+
+---
+
+### TL;DR (3)
+
+##### PGQの提案と評価
+理論的貢献(1)の結果から得られる行動価値関数をベルマン最適方程式を満たすように正則化をかけたアルゴリズムPGQを提案。**これは `\( \eta =0 \)` のときはエントロピー正則化付きの方策勾配法、`\( \eta = 1\)` のときは特殊な構造のQ学習をしていると捉えられる。**AtariドメインでMedianでも人を上回り、DQNやA3Cと比べても一人負けするゲームが存在しないという安定性を見せた。
 
 ---
 
@@ -148,7 +157,7 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 
 - サンプリングは現在の `\(Q_{\theta}\)` に基づいた `\(\epsilon\)`-グリーディ方策かボルツマン方策が用いられることが多い
 - ターゲットが現在の推定している `\(Q_{\theta}\)` に依存しているのでブートストラップになっている（TD法全般に共通）
-- それぞれ適切な条件下で最適行動価値関数へ収束する（SARSAは **方策改善** も必要とする (e.g., GLIEを満たす方策を用いる[XXXX])）
+- それぞれ適切な条件下で最適行動価値関数へ収束する（SARSAは **方策改善** も必要とする (e.g., GLIEを満たす方策を用いる[Singh+00])）
 
 ---
 
@@ -164,27 +173,37 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 
 ---
 
-### アドバンテージ
+### 方策勾配法
+
+`\(Q^{\pi}\)` は現実的には他のものが使われる
+- 実際の即時報酬 `\(R\)`（REINFORCE[Williams+92]）
+- 実際の報酬の複数ステップ先読み版
+
+また、推定量の分散を抑えるため、`\(a\)` と関係のないベースライン `\(b\)` が上記の最適化するものから引かれる。bの例としては
+
+- `\( V^{\pi}(x) \)`
+
+現実的には複数ステップ先読みした（推定）収益と、ベースライン`\(V^{\pi}\)`を使われ[Mnih+16]、方策と価値関数を推定するのでActor-critic法になる
 
 ---
 
 ### 方策勾配法におけるエントロピー正則化
 
-- [HOGE]
-- 方策が決定論的にならないようにかける正則化として一般的
+- 方策勾配法の問題点として探索と活用のトレードオフを特に考慮してない点がある
+- 方策に関するエントロピー正則化項を加えて方策が決定論的にならないよう正則化するのは一般的 [Williams&Peng91]
 
-##### 目的関数に割引付きエントロピー正則化項を加えたと見なすこともできる
-
-この観点からのより興味深い分析がICMLに投稿されている [Nachum+17]
+この観点からのより興味深い分析が、ごく最近arXivに投稿されている [Nachum+17]
 
 ---
 
 ### Q学習と方策勾配法の特徴
 
+この研究のモチベーションを理解するため、Q学習と方策勾配法の特徴とPros/Consを説明する。
+
 - .green[**Q学習**]: 本質的に **方策オフ型学習**（後述）の手法
 - .green[**方策勾配法**]: 本質的に **方策オン型学習**（後述）の手法
 
-**なので、方策オフ・オン型学習のPros/Cons（後述）がそのままPros/Consになってしまう**
+**方策オフ・オン型アルゴリズムの性質由来のPros/Consが存在（後述）**
 
 > ... Q-learning is an inherently off-policy algorithm ... [Szepesvari10]
 
@@ -196,7 +215,7 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 
 ---
 
-### Q学習は何故本質的に方策オフ型？
+### Q学習は本質的に方策オフ型
 
 **Review:** Q学習の更新則
 
@@ -206,11 +225,24 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 
 - **更新則の期待値のサンプル平均が推定方策に依存していないため、
 .red[関係無い分布からサンプリングをしてもサンプル平均が不偏推定量になる]**
-- 逆に、方策オンのサンプルだけから学習するのが難しい（たとえ現在の `\(Q^{\ast}\)` の `\(\epsilon\)`-グリーディ方策やボルツマン方策からサンプリングしても、探索的行動が取られれば `\(\pi(a|x) = \text{argmax}_{a} Q^{\ast} (x, a) \)` には沿えない）
+- 逆に、現在の `\(Q_{\theta}\)` に基づく最適方策 `\(\text{argmax}_{a} Q_{\theta} (x, a) \)` のサンプルだけから学習するのは不可能（`\(Q_{\theta}\)` の `\(\epsilon\)`-グリーディ方策やボルツマン方策など探索的行動も取らなければ任意の状態・行動に対し十分なサンプルが得られない）
 
 ---
 
-### 方策勾配法は何故本質的に方策オン型？
+### Q学習のPros/Cons
+- **Pros:** **経験再生** [Lin92] を使えるのでデータ効率的
+- **Pros:** 任意の方策からサンプリングされたデータで学習可能（サンプルサイズが十分あれば）
+- **Cons:** .red[**複数ステップ法への拡張が難しい**]（サンプル平均がサンプリングする方策に依存するようになるのでバイアスが生じる）
+
+##### このConsを解決するアプローチ
+
+- **Importance sampling (IS)** [Precup+00] 推定方策と行動方策の分布比に応じて重み付け
+- **Retrace(λ)** [Munos+16] ISの分散爆発を避けつつ長く先読みできるよう工夫
+- **PCL** [Nachum+17] 本論文を踏まえた発展
+
+---
+
+### 方策勾配法は本質的に方策オン型
 
 **Review:** 方策勾配法の更新則
 
@@ -220,59 +252,137 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 
 ---
 
-## 方策オフ型のPros/Cons
-- **Pros:** 一度サンプルを生成すれば何度も活用できる・複数のモデルを学習できる
-- **Pros:** **経験再生** [HOGEHOGE] を使えるのでデータ効率的
-- **Cons:** .red[**サンプル平均がサンプリングする方策に依存する場合（特に複数ステップ法を使う場合に）バイアスが生じる**]（加えてそもそも依存しない手法が多くない...）
-
-##### このConsを解決するアプローチ
-
-- Importance sampling (IS) [XXXX]
-- Retrace(λ) [XXXX]
-- PCL [XXXX]
-- その他手法はxxxにまとまってる
-
----
-
-### 方策オン型のPros/Cons
+### 方策勾配法のPros/Cons
 
 - **Pros:** サンプル平均が行動方策に依存する場合でもバイアスがない
 - **Pros:** 複数ステップ法が使えるのでバイアス・バリアンスのトレードオフがとれる
-- **Cons:** .red[**経験再生が使えずサンプルが使い捨てになりデータ効率が良くない**]
+- **Cons:** .red[**経験再生と相性が悪くサンプルが使い捨てになりデータ効率が良くない**]
+- **Cons:** **探索・活用のトレードオフを考慮してない**
 
 ##### このConsを解決しようとするアプローチ
 
-- ACER [XXXX]
-- .red[**PGQ**] [XXXX]
+- **ACER** [Wang+17]
+- .red[**PGQ**] [O’Donoghue+17]
 
 ---
-## この論文の理論的な貢献
 
-- エントロピー正則化付きの方策勾配法は実は `\(Q^{\pi}\)` をこっそり推定していた
-- Actor-criticと価値ベースは更新則が実は（特別な場合に）一緒だった
+## この論文の理論的な貢献
 
 ---
 
 ### 理論的貢献(1)
 
-### エントロピー正則化付きの方策勾配法は実は `\(Q^{\pi}\)` を推定していた
+##### .red[エントロピー正則化付きの方策勾配法の停留点において、方策とアドバンテージ関数の間に次式の関係性を示した（式4）]
+
+`$$\pi(a|x) \propto \exp \left( A^{\pi}(x, a) / \alpha \right)$$`
+
+この関係から逆に停留点での方策を使ってアドバンテージ関数とQ関数を `\( \tilde{A}^{\pi} \)`、`\( \tilde{Q}^{\pi} \)` と表すことができ、
+方策勾配法でもQ関数の推定をしているとみなすことが出来るようになった（式6）。
+
+`$$\Delta\theta \propto \mathbf{E} \left[ \left( Q^{\pi}(x, a) - \tilde{Q}^{\pi}(x, a) \right) \nabla_{\theta} \log \pi (x, a) \right]\\
+$$`
+
+PGQではこのQ関数にベルマン最適方程式を満たすよう正則化をかけている。
+**また、この貢献は `\(\pi\)` と `\(V^{\pi}\)` から `\(Q^{\pi}\)` を表せていることになり、非自明**
 
 ---
 
 ### 理論的貢献(2)
 
-### Actor-criticと価値ベースは更新則が実は（特別な場合に）一緒だった
+**SARSA, Q学習の更新則**
+`$$\nabla_{\theta}\left( T^{\pi}Q_{\theta} - Q_{\theta} \right) = \mathbf{E} \left[ \left( T^{\pi}Q_{\theta} - Q_{\theta} \right) \nabla_{\theta}Q_{\theta} \right]\\
+\nabla_{\theta}\left( T^{\ast}Q_{\theta} - Q_{\theta} \right) = \mathbf{E} \left[ \left( T^{\ast}Q_{\theta} - Q_{\theta} \right) \nabla_{\theta}Q_{\theta} \right]$$`
+**エントロピー正則化付き方策勾配法の更新則**
+`$$\Delta\theta \propto \mathbf{E} \left[ \left( Q^{\pi}(x, a) - \tilde{Q}^{\pi}(x, a) \right) \nabla_{\theta} \log \pi (x, a) \right]\\
+$$`
+が似てる気がする... .green[**一緒では？**]
+
+##### .red[Actor-critic法と行動価値を推定する手法 (Q学習やSARSA) は更新則が（特別な場合に）等しくなる。とくに、Actor-critc法をAdvantage function learningと見なすことが出来る]
 
 ---
 
-### アルゴリズムの基本的なアイディア
+### 理論的貢献(2)
 
-- 現在推定している `\(\pi(a|x)\)`と`\(V(x)\)` から `\(Q(x, a)\)` を求めて **(!)** この `\(Q(x, a)\)` にQ学習の更新則を適用する
--
+##### 仮定一覧
+- **引き続きエントロピー正則化は仮定として必要**
+- Actor-criticの方策は `\( \pi(a|x) \propto \exp (W(x, a)) \)` の形で書ける
+- 行動価値の学習ではDueling architecture[Wang+16]を用いる
+
+##### 最小化する誤差の選び方の例
+SARSAの場合もQ学習の場合も、現在の方策から求まるQ関数でターゲットをブートストラップすれば良い
 
 ---
 
-### アルゴリズム
+## アルゴリズム
+
+---
+
+### 提案アルゴリズム: PGQ
+
+PGQでは今までの議論からエントロピー正則化によって `\( \pi \)` から導かれるQ関数 `\( \tilde{Q}^{\pi} \)` にベルマン最適方程式を満たすよう正則化をかけている（式12, 14）
+
+<img src='img/pgq-update.png' width=600px />
+
+- 各更新則の前項は通常のエントロピー付きの方策勾配法に対応し、後項は新たに追加したベルマン最適方程式による正則化である。
+- `\( \eta = 0 \)` でで通常のエントロピー付きの方策勾配法と見なすことができ、逆に `\( \eta = 0 \)` で（特殊な）Q学習と見なすことができる（Dueling architecture[Wang+16]に似ている）
+
+---
+
+### 経験再生を使った実際の更新則
+
+現実的には式14のアップデートを同時にバッチで行なわない（方策勾配法を活かせない）
+
+- 方策オンでサンプルを並列で生成し、方策勾配法により方策と価値関数を更新する
+- 上記で観測されたサンプル系列はリプレイバッファへと貯められる
+- 別プロセスがリプレイバッファに貯まったサンプルをバッチで、ベルマン最適方程式を満たすよう更新する
+
+---
+
+### アーキテクチャ
+
+Dueling architecture[Wang+16]にかなり似てる
+
+
+<img src='img/pgq-nn.png' width=600px />
+
+[O’Donoghue+17]より引用
+
+---
+
+## 実験
+
+---
+
+### Atariにおける性能評価
+
+- DQN, A3Cと人のスコアを100で正規化したスコア
+- 人のスコアにMedianでも勝利
+
+<img src='img/pgq-atari.png' width=600px />
+[O’Donoghue+17]より引用
+
+---
+
+### PGQが上手くいってる例
+
+<img src='img/pgq-well.png' width=600px />
+[O’Donoghue+17]より引用
+
+---
+
+### PGQが上手くいかなかった例
+**とはいえ、最下位にはなっていない**
+
+<img src='img/pgq-poor.png' width=600px />
+[O’Donoghue+17]より引用
+
+---
+
+### 感想
+
+- 方策勾配法が一ミリも探索・活用のトレードオフを考慮しないのは理論的な側面からいっても不自然な気がする（Q学習もSARSAも最適行動価値へ収束するためには十分な探索が条件になってる）ので、そういう意味では実はエントロピー正則化付きの目的関数を考えた方が逆に自然ということはさもありなんと言う気もする（この観点からは[Nachum+17]がさらに研究を進めている）
+- アルゴリズム（PGQ）の提案が急に雑な気がする。要するに通常のエントロピー正則化付き方策勾配法で推定している方策と状態の価値関数から適当にQ関数を作ってそれにベルマン最適方程式で正則化をかけただけに見えてしまう
+- とはいえ、AtariにおいてMedianでも初めて（？）人間レベルを上回った意義は大きいように思える
 
 ---
 
@@ -281,8 +391,16 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 ---
 
 - [Watkins89] Learning from delayed rewards. PhD thesis 1989
+- [Williams&Peng91] Function Optimization Using Connectionist Reinforcement Learning Algorithms. Connection Science 1991
+- [Williams+92] Simple statistical gradient-following algorithms for connectionist reinforcement learning Machine Learning 1992.
+- [Lin92] Self-Improving Reactive Agents Based On Reinforcement Learning, Planning and Teaching. Machine Leanring
 - [Sutton+99] Policy Gradient Methods for Reinforcement Learning with Function Approximation. NIPS 1999
+
+---
+
 - [Rummery&Niranjan94] On-line Q-learning using connectionist systems. 1994
+- [Singh+00] Convergence Results for Single-Step On-Policy Reinforcement-Learning Algorithms. Machine Learning 2000
+- [Precup+00] Eligibility Traces for Off-Policy Policy Evaluation. ICML 2000
 - [Szepesvari10] Algorithms for Reinforcement Learning. 2010
 - [Mnih+13] Playing atari with deep reinforcement learning. NIPS-WS 2013
 
@@ -296,8 +414,12 @@ SARSAは現在の方策に基づく行動価値関数を、Q学習は最適行�
 
 ---
 
+- [Wang+16] Dueling Network Architectures for Deep Reinforcement Learning ICML 2016
 - [Bahdanau+17] An Actor-Critic Algorithm for Sequence Prediction. ICLR 2017
 - [Munos+16] Safe and efficient off-policy reinforcement learning. NIPS 2016
 - [Wang+17] Sample Efficient Actor-Critic with Experience Replay. ICLR 2017
 - [O’Donoghue+17] PGQ: Combining Policy Gradient and Q-learning. ICLR 2017
+
+---
+
 - [Nachum+17] Bridging the Gap Between Value and Policy Based Reinforcement Learning. submitted to ICML 2017
