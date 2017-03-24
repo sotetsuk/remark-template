@@ -173,9 +173,8 @@
     </style>
   </head>
   <body>
-    <script src="http://gnab.github.io/remark/downloads/remark-latest.min.js" type="text/javascript"></script>
-     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
-    </script>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script>
     <script>
       var slideshow = remark.create({
         sourceUrl: 'slide.md'
@@ -192,9 +191,7 @@
               return(elem.SourceElement());
           }).parent().addClass('has-jax');
       });
-
       MathJax.Hub.Configured();
     </script>
-
   </body>
 </html>
