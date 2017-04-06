@@ -28,11 +28,11 @@ Atariの50以上のゲームにおいて、得られた報酬に基づくスコ�
 
 **.red[重要な貢献] エントロピー正則化付きの方策勾配法の停留点において、方策`\(\pi\)`とこの方策におけるアドバンテージ関数`\(A^{\pi}(s, a)\)`の間に次式の関係性を示した（Eq.4):
 `$$\pi(a|s) \propto \exp \left( A^{\pi}(s, a) / \alpha \right)$$`**
-これにより、方策勾配法でもQ関数の推定をしているとみなすことが出来るようになった（Eq.6）:
-`$$\Delta\theta \propto \mathbf{E} \left[ \left( Q^{\pi}(s, a) - \tilde{Q}^{\pi}(s, a) \right) \nabla_{\theta} \log \pi (s, a) \right]$$`
-PGQは、この関係式から逆に行動価値関数を方策`\(\pi\)`と価値関数`\(V^{\pi}\)`から
+この関係式から逆に行動価値関数を、方策勾配法で推定している方策`\(\pi\)`と価値関数`\(V^{\pi}\)`から
 `$$\tilde{Q}^{\pi}(s, a) = \alpha (\log \pi(s, a) + H^{\pi}(s)) + V^{\pi}(s)$$`
-と計算し、`\(\tilde{Q}^{\pi}\)`がベルマン最適方程式に従うよう正則化をかけた方策勾配法の目的関数を最適化する:
+と計算すると、方策勾配法でもQ関数の推定をしているとみなすことが出来るようになった（Eq.6）:
+`$$\Delta\theta \propto \mathbf{E} \left[ \left( Q^{\pi}(s, a) - \tilde{Q}^{\pi}(s, a) \right) \nabla_{\theta} \log \pi (s, a) \right]$$`
+PGQは、この`\(\tilde{Q}^{\pi}\)`がベルマン最適方程式に従うよう正則化をかけた方策勾配法の目的関数を最適化する:
 `$$\Delta\theta \propto (1-\eta) \mathbf{E} \left[ \left( Q^{\pi} - \tilde{Q}^{\pi} \right) \nabla_{\theta} \log \pi \right] + \eta \mathbf{E} \left[ \left( T^{\ast} \tilde{Q}^{\pi} - \tilde{Q}^{\pi} \right) \nabla_{\theta} \log \pi \right] $$`
 第一項がエントロピー正則化付き方策勾配法、第二項がQ学習に対応している。
 
