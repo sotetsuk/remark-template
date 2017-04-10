@@ -1,10 +1,20 @@
 class: center, middle
 
 #### 【論文紹介】
-### PGQ: Combining Policy Gradient And Q-learning
-#### O’Donoghue et al. ICLR 2017
+### Bridging the Gap Between Value and Policy Based Reinforcement Learning
+#### Nachum et al. 2017
 
 Sotetsu KOYAMADA (@sotetsuk)
+
+---
+
+### Table of Contents
+
+- 論文概要
+
+---
+
+# 以下PGQのコピー
 
 ---
 
