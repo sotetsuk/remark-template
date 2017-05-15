@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/earlyaccess/mplus1p.css" rel="stylesheet" />
+    <style>
+@page {
+	  margin: 0;
+}
+
+@media print {
+ .remark-slide-scaler {
+ width: 100% !important;
+ height: 100% !important;
+ transform: scale(1) !important;
+ top: 0 !important;
+ left: 0 !important;
+ }
+}
+
+    body {
+      font-family: 'Mplus 1p';
+      color: #362E3D;
+      font-weight: 400
+    }
+    h1, h2, h3 {
+      font-family: 'Mplus 1p';
+      font-weight: bold;
+    }
+
+    .green { color: #00989E; }
+    .red    { color: #FF0033; }
+    .blue   { color: #0A00D3; }
+
+    /* based on: http://www.lendmeyourear.net/wp-content/uploads/markdown-remark-slides.html */
+
+    * {
+        .box-sizing(border-box);
+    }
+    *:before,
+    *:after {
+        .box-sizing(border-box);
+    }
+
+    a {
+        color: #80a000;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    a:hover, a:focus {
+        color: #576d00;
+        text-decoration: underline;
+    }
+
+    a:focus {
+        outline: 3px solid #80a000;
+        outline-offset: 0;
+        background-color: #80a000;
+        color: #FFF;
+        text-decoration: none;
+    }
+
+    ol {
+        padding: 0 0 0 1.5em;
+        margin: 1em 0;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 1em 0;
+        padding: 0;
+    }
+
+    li:before {
+        content: "■";
+        color: #00989e;
+        padding-right: 6px;
+    }
+
+    img {
+        vertical-align: middle;
+        max-height: 600px;
+        margin: 0 auto 1em;
+        display: block;
+    }
+
+    hr {
+        height: 0;
+        margin: 1em 0;
+        border: 0;
+        border-top: 1px solid #cccccc;
+    }
+
+    blockquote {
+        border-left: 5px solid #cccccc;
+        padding-left: 1em;
+        margin: 1em -2em;
+        font-style: italic;
+        color: #999999;
+    }
+
+    .remark-slide-number {
+        display: none;
+    }
+
+    .remark-slide {
+        display: table;
+    }
+
+    .remark-slide-content {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 6em;
+        border-bottom: 18px solid #00989e;
+        font-size: 24px;
+    }
+
+    .remark-slide-content:after {
+        content: "";
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        height: 40px;
+        width: 120px;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .remark-slide-content h1 {
+        font-size: 56px;
+        color: #00989e;
+    }
+
+    .remark-slide-content h2 {
+        font-size: 48px;
+        color: #00989e;
+    }
+
+    .remark-slide-content h3 {
+        font-size: 36px;
+        color: #00989e;
+    }
+
+    .remark-slide-content h4 {
+        font-size: 28px;
+    }
+
+    .remark-slide-content h5 {
+        font-size: 24px;
+    }
+
+    .remark-slide-content h6 {
+        font-size: 20px;
+    }
+
+    .remark-slide-content > :first-child {
+        margin-top: 0;
+    }
+
+    .remark-slide-content > :last-child {
+        margin-bottom: 0;
+    }
+
+    .remark-code-line {
+        white-space: normal;
+        background-color: #000;
+        border: 1px solid #000;
+        color: #fff;
+        padding: 0 1em;
+    }
+
+    </style>
+  </head>
+  <body>
+     <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+     <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured"></script>
+    <script>
+      var slideshow = remark.create({
+        sourceUrl: 'slide.md'
+      });
+
+       // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
+
+  </body>
+</html>
